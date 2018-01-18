@@ -1,0 +1,128 @@
+{
+  "name": "react-apollo",
+  "version": "2.0.4",
+  "description": "React data container for Apollo Client",
+  "module": "src/index.ts",
+  "scripts": {
+    "danger": "danger run --verbose",
+    "deploy": "./scripts/prepare-package.sh && cd npm && npm publish",
+    "test": "npm run lint && npm run type-check && npm run jest",
+    "jest": "jest --maxWorkers=4 --coverage",
+    "test-watch": "jest --watch",
+    "test-preact": "jest --config ./jest.preact.config.json --no-cache",
+    "filesize": "bundlesize",
+    "type-check": "tsc --project tsconfig.json --noEmit && flow check",
+    "precompile": "rimraf lib && rimraf npm",
+    "compile":
+      "tsc --project tsconfig.json && rimraf lib/test && mv lib/src/* lib/. && rimraf lib/src",
+    "postcompile":
+      "rollup -c rollup.config.js && rollup -c rollup.test-utils.config.js",
+    "watch": "tsc -w",
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "lint:fix":
+      "npm run prettier && tslint 'src/*.ts*' --project tsconfig.json --fix",
+    "lint-staged": "lint-staged",
+    "prettier":
+      "prettier --config .prettierrc --write \"{src,test}/**/*.{js,ts}*\""
+  },
+  "bundlesize": [
+    {
+      "path": "./lib/umd/react-apollo.js",
+      "maxSize": "4.8 KB"
+    }
+  ],
+  "lint-staged": {
+    "*.{js,ts}*": ["prettier --single-quote --write", "git add"]
+  },
+  "pre-commit": "lint-staged",
+  "repository": {
+    "type": "git",
+    "url": "apollostack/react-apollo"
+  },
+  "keywords": [
+    "ecmascript",
+    "es2015",
+    "jsnext",
+    "javascript",
+    "relay",
+    "npm",
+    "react"
+  ],
+  "author": "James Baxley <james@meteor.com>",
+  "babel": {
+    "presets": ["env"]
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "mapCoverage": true,
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/examples",
+      "<rootDir>/test/flow-usage.js",
+      "<rootDir>/test/typescript-usage.tsx"
+    ],
+    "projects": ["<rootDir>"],
+    "testRegex": "(/test/(?!test-utils\b)\b.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "setupFiles": ["<rootDir>/test/test-utils/setup.ts"]
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "apollo-client": "^2.0.3",
+    "react": "0.14.x || 15.* || ^15.0.0 || ^16.0.0"
+  },
+  "devDependencies": {
+    "@types/enzyme": "3.1.6",
+    "@types/graphql": "0.11.7",
+    "@types/invariant": "2.2.29",
+    "@types/jest": "22.0.1",
+    "@types/lodash": "4.14.92",
+    "@types/object-assign": "4.0.30",
+    "@types/react": "16.0.34",
+    "@types/react-dom": "16.0.3",
+    "@types/zen-observable": "0.5.3",
+    "apollo-cache-inmemory": "1.1.5",
+    "apollo-client": "2.2.0",
+    "babel-core": "6.26.0",
+    "babel-jest": "22.1.0",
+    "babel-preset-env": "1.6.1",
+    "bundlesize": "0.15.3",
+    "coveralls": "3.0.0",
+    "danger": "3.0.5",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "flow-bin": "0.63.1",
+    "graphql": "0.11.7",
+    "graphql-tag": "2.6.1",
+    "jest": "22.1.1",
+    "jsdom": "11.5.1",
+    "lint-staged": "6.0.0",
+    "pre-commit": "1.2.2",
+    "preact": "^8.2.7",
+    "preact-compat": "^3.17.0",
+    "prettier": "1.10.2",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
+    "react-test-renderer": "16.2.0",
+    "recompose": "0.26.0",
+    "rimraf": "2.6.2",
+    "rollup": "0.54.1",
+    "rollup-plugin-babel-minify": "3.1.2",
+    "ts-jest": "22.0.1",
+    "tslint": "5.9.1",
+    "typescript": "2.6.2",
+    "typescript-require": "0.2.9",
+    "zen-observable-ts": "0.5.0"
+  },
+  "dependencies": {
+    "apollo-link": "^1.0.6",
+    "fbjs": "^0.8.16",
+    "hoist-non-react-statics": "^2.3.1",
+    "invariant": "^2.2.2",
+    "lodash": "4.17.4",
+    "prop-types": "^15.6.0"
+  }
+}
